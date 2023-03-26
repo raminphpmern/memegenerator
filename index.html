@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Meme Generator</title>
+</head>
+
+<body onload="onInit()">
+    <header class="navbar flex space-between">
+        <div class="logo">
+            <h1 class="heading">Meme Generator</h1>
+            <h5 class="sub-heading">Your Meme Stock</h5>
+        </div>
+        <nav class="navbar topnav flex">
+            <ul class="main-nav flex clean-list  space-between align-center">
+                <li><a onclick="onMoveToGalery()" data-trans="galery">Gallery</a></li>
+                <li><a href="create-memes/demo">Create Your Own Memes</a></li>
+                <li><a onclick="onMoveToAboutPage()" data-trans="about">About</a></li>
+                <li class="dropdown"><span class="fa fa-angle-double-down" data-trans="language">Language</span>
+                    <ul class="dropbtn dropdown-content clean-list ">
+                        <li><a onclick="onSetLang('en')">English</a></li>
+                        <li><a onclick="onSetLang('he')">עברית</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="btn-menu fa fa-bars" onclick="toggleMenu()"></button>
+        </nav>
+    </header>
+
+
+    <section class="search-sec ">
+        <div class="search-box">
+            <input class="input-bar" type="text" list="theme-search" data-trans="inputSearch"
+                placeholder="Search a category...." onkeyup="onclickFilter(this.value)">
+            <span class="fa fa-search"></span>
+            <datalist id="theme-search">
+                <option data-trans="funny" value="funny">
+                <option data-trans="animal" value="animal">
+                <option data-trans="animation" value="animation">
+                <option data-trans="awkward" value="awkward">
+            </datalist>
+        </div>
+        <div class="search-words">
+            <!-- Here are rendered The search Words -->
+        </div>
+    </section>
+
+
+    <section class="img-container ">
+        <!-- Here will be rendered the images  -->
+    </section> -->
+
+
+    <section class="editor-container hidden">
+        <div class="canvas-container hidden flex">
+            <canvas id="meme-canvas" height="400" width="400">
+            </canvas>
+        </div>
+        <div class="canvas-editors hidden">
+            <div class="editors ">
+                <input class="userTxt" type="text" id="text" placeholder="  Challenge your inner comedian!"
+                    oninput="onsendInput(this.value)">
+                <div class="btn-gr1">
+                    <button value="UP" onclick="onMoveLineUp(4)" class="fa fa-arrow-up"></button>
+                    <button value="DOWN" onclick="onMoveLineDown(-4)" class="fa fa-arrow-down"></button>
+                    <button onclick="onSwitchFocus()" class="fa fa-exchange"></button>
+                    <button onclick="onAddLine()" class="fa fa-plus"></button>
+                    <button onclick="onRemoveText()" class="fa fa-trash"></button>
+                </div>
+                <div class="btn-gr2">
+                    <button value="PLUS" onclick="onChangeTextSize(1)" class="fa fa-font"><span>+</span></button>
+                    <button value="MINUS" onclick="onChangeTextSize(-1)" class="fa fa-font"><span>-</span></button>
+                    <button onclick="onAlignText('right')" class="fa fa-align-left "></button>
+                    <button onclick="onAlignText('center')" class="fa fa-align-center "></button>
+                    <button onclick="onAlignText('left')" class="fa  fa-align-right"></button>
+                    <select id="fonts" class="fonts-selection" onchange="onChangeFont(value)">
+                        <option>Impact</option>
+                        <option>Times New Roman</option>
+                        <option>Verdana</option>
+                    </select>
+                    <button class="fa fa-strikethrough">
+                        <input class="control-color-input" type="color" oninput="onChangeOutlineColor(value)"
+                            title="Choose Outline color">
+                        <span></span></button>
+                    <button class="fa palette"><span>🎨</span><input class="control-color-input" type="color"
+                            oninput="onChangeFillColor(value)" title="Choose color" /></button>
+                </div>
+
+                <section class="stickers-container">
+                </section>
+                <div class="save-btns">
+                    <button onclick="shareToExternalSorce()" class="fc-btn share-container "><span
+                            class="fa fa-facebook"></span></button>
+                    <a href="#" class="a-btn" onclick="downloadImg(this)" download="my-img.jpg"><span
+                            class="fa fa-download"></span></a><span></span>
+                    <button class="save-btn"><span class="fa fa-save"></span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="about-page hidden">
+        <main class="about-container flex">
+            <img class="about-img" src="aboutImg/my-img (12).jpg" alt="">
+            <div class="about-me">
+                <p data-trans="about-me" class="about-txt">Hello, my name is <span class="creator-name">Sundos
+                        Gutty</span>.
+                    I'm a Full Stack Web Developer student, with experience in writing single-page-applications
+                    using the latest WEB technologies such as JavaScript (ES6, ES5). Hard worker, self-learner, team
+                    player with
+                    strong communication skills.
+                </p>
+                <section class="by-socials">
+                    <p data-trans="contact"> You can contact me through:</p>
+                    <ul class="flex clean-list">
+                        <li> <a href="https://www.facebook.com/soundos.goutti" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/sundos-guty-0382a71b4" target="_blank">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/SundosGutty" target="_blank">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://instagram.com/sundosguty?utm_medium=copy_link" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                </section>
+            </div>
+        </main>
+    </section>
+
+
+    <section class="save-meme-container hidden">
+        <h1 data-trans="edited-memes" class="edited-memes">Your Edited Memes</h1>
+    </section>
+
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close fa fa-close"></span>
+            <p class="modal-txt">Hey there friend! I am sorry, but this feature is still in the making. But it will be
+                ready very soon, so
+                stay in touch!</p>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="js/utilitis.js"></script>
+    <script src="js/translation.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/controler.js"></script>
+    <script src="js/meme.controler.js"></script>
+    <script src="js/services.js"></script>
+
+</body>
+
+</html>
